@@ -20,7 +20,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var falseBtn: UIButton!
     
     // store question array
-    let questionArr = ["Leclerc will be World Champion", "Ferrari is best F1 team", "Williams will rise again", "You will be billionaire"]
+    let questionArr = [
+        ["Leclerc will be World Champion", "True"], ["Ferrari is best F1 team", "True"], ["Williams will rise again", "False"], ["You will be billionaire", "True"]
+    ]
     
     // store question index
     var questionIndex: Int = 0
@@ -35,10 +37,30 @@ class ViewController: UIViewController {
         
     }
     
-    // link user inputs
+    // link input btns
     @IBAction func answerBtnPressed(_ sender: UIButton) {
-        // change question
-        questionIndex += 1
+        // store user answer
+        let userAnswer = sender.currentTitle!
+        
+        // store correctAnswer
+        let correctAnswer = questionArr[questionIndex][1]
+        
+        // check user answer
+        if (userAnswer == correctAnswer) {
+            print("CORRECT")
+        }
+        if (userAnswer != correctAnswer) {
+            print("WRONG")
+        }
+        
+        // check question array bounds
+        if(questionIndex <= questionArr.count) {
+            // change question
+            questionIndex += 1
+        }
+        if (questionIndex >= questionArr.count) {
+            questionIndex = 0
+        }
         
         // display question
         updateUI()
@@ -46,7 +68,7 @@ class ViewController: UIViewController {
     
     // create question update function
     func updateUI() {
-        questionLabel.text = questionArr[questionIndex]
+        questionLabel.text = questionArr[questionIndex][0]
     }
 }
 

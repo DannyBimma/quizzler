@@ -19,9 +19,12 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var falseBtn: UIButton!
     
-    // store question array
-    let questionArr = [
-        ["Leclerc will be World Champion", "True"], ["Ferrari is best F1 team", "True"], ["Williams will rise again", "False"], ["You will be billionaire", "True"]
+    // store quizz array using the Questions struct
+    let quizzArr = [
+        Questions(question: "Leclerc will be World Champion", answer: "True"),
+        Questions(question: "Ferrari is best F1 team", answer: "True"),
+        Questions(question: "Williams will rise again", answer: "False"),
+        Questions(question: "You will be a billionaire", answer: "True")
     ]
     
     // store question index
@@ -32,18 +35,17 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         print(questionLabel.text!)
         
-        // display question
+        // display initial question
         updateUI()
-        
     }
     
-    // link input btns
+    // link answer input btns
     @IBAction func answerBtnPressed(_ sender: UIButton) {
         // store user answer
         let userAnswer = sender.currentTitle!
         
         // store correctAnswer
-        let correctAnswer = questionArr[questionIndex][1]
+        let correctAnswer = quizzArr[questionIndex].answer
         
         // check user answer
         if (userAnswer == correctAnswer) {
@@ -54,11 +56,11 @@ class ViewController: UIViewController {
         }
         
         // check question array bounds
-        if(questionIndex <= questionArr.count) {
+        if(questionIndex <= quizzArr.count) {
             // change question
             questionIndex += 1
         }
-        if (questionIndex >= questionArr.count) {
+        if (questionIndex >= quizzArr.count) {
             questionIndex = 0
         }
         
@@ -68,7 +70,7 @@ class ViewController: UIViewController {
     
     // create question update function
     func updateUI() {
-        questionLabel.text = questionArr[questionIndex][0]
+        questionLabel.text = quizzArr[questionIndex].question
     }
 }
 

@@ -50,14 +50,16 @@ class ViewController: UIViewController {
         // check user answer
         if (userAnswer == correctAnswer) {
             print("CORRECT")
+            sender.backgroundColor = UIColor.green
         }
         if (userAnswer != correctAnswer) {
             print("WRONG")
+            sender.backgroundColor = UIColor.red
         }
         
         // check question array bounds
         if(questionIndex <= quizzArr.count) {
-            // change question
+            // index next question
             questionIndex += 1
         }
         if (questionIndex >= quizzArr.count) {
@@ -70,7 +72,18 @@ class ViewController: UIViewController {
     
     // create question update function
     func updateUI() {
+        // display next question
         questionLabel.text = quizzArr[questionIndex].question
+        
+        // reset btn colour after 0.2s timeout
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+           // Code you want to be delayed
+            self.trueBtn.backgroundColor = UIColor.clear
+            self.falseBtn.backgroundColor = UIColor.clear
+        }
+        
+        // fill progress bar
+        progressBar.progress = Float(questionIndex + 1) / Float(quizzArr.count)
     }
 }
 
